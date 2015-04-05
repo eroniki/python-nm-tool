@@ -3,7 +3,8 @@
 import commands
 import re
 
-__all__ = [ 'parse', 'get_dict' ]
+__all__ = ['parse', 'get_dict']
+
 
 def parse(output):
     """Parses the complete output of nm-tool, and returns a dictionary with
@@ -11,7 +12,7 @@ def parse(output):
     under the interface name. Global properties will appear under a '_' key.
     """
     # global properties will show up under _
-    interfaces = {'_' : {}}
+    interfaces = {'_': {}}
     interface = '_'
     lines = output.splitlines()
     in_scan_results = False
@@ -25,7 +26,7 @@ def parse(output):
                 interface_plus_name = interface.split('[')
                 interface = interface_plus_name[0].strip()
                 name = interface_plus_name[1].rstrip(']').strip()
-            interfaces[interface] = {'name' : name}
+            interfaces[interface] = {'name': name}
         elif 'Wireless Access Points' in line:
             interfaces[interface]['scan_results'] = {}
             in_scan_results = True
@@ -51,6 +52,7 @@ def parse(output):
             in_scan_results = False
     return interfaces
 
+
 def get_dict():
     """Runs 'nm-tool' and then parses its output. Returns the result dict
     from 'parse()' if successful, otherwise returns None."""
@@ -58,7 +60,7 @@ def get_dict():
     if status == 0:
         return parse(output)
     return None
-    
+
 
 def main():
     info = get_dict()
@@ -67,6 +69,6 @@ def main():
         pprint(info)
     else:
         print "Unable to parse nm-tool output"
-    
+
 if __name__ == '__main__':
     main()
