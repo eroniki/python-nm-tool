@@ -1,5 +1,6 @@
 import nm_tool
 
+
 def main():
     info = nm_tool.get_dict()
     if info is not None:
