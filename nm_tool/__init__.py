@@ -60,15 +60,3 @@ def get_dict():
     if status == 0:
         return parse(output)
     return None
-
-
-def main():
-    info = get_dict()
-    if info is not None:
-        from pprint import pprint
-        pprint(info)
-    else:
-        print "Unable to parse nm-tool output"
-
-if __name__ == '__main__':
-    main()
